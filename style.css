@@ -7,3 +7,5 @@
 .phone{display:flex;align-items:center;gap:15px;width:fit-content}.phone-icon{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border:1px solid #f6f3e940;border-radius:50%;background:#ffffff08;flex-shrink:0}.phone-icon svg{width:23px;height:23px}.phone small{display:block;font:500 11px/1.5 "DM Sans",sans-serif;letter-spacing:1px;color:#c2ccbb;margin-bottom:3px}.phone:hover .phone-icon{background:#ffffff18}
 
 .location-map{margin-top:28px;max-width:100%}.location-map iframe{display:block;width:100%;height:260px;border:0;border-radius:5px;background:#e6eadf}.location-map p{font-size:11px;color:#cad3c4;margin:10px 0 0;line-height:1.6}@media(max-width:700px){.stay-grid .packages{order:0}.stay-grid .stay-photo{order:1}.location-map iframe{height:240px}}
+
+.story-main{object-position:65% center}
