@@ -9,3 +9,16 @@ $$('[data-package]').forEach(a=>a.addEventListener('click',()=>{$('[name=package
 const today=new Date();const minDate=[today.getFullYear(),String(today.getMonth()+1).padStart(2,'0'),String(today.getDate()).padStart(2,'0')].join('-');$('[name=date]').min=minDate;$('#year').textContent=today.getFullYear();
 $('#booking-form').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.currentTarget);const message=`Hello Wanale CT Campsite! I'd like to enquire about a stay.\n\nName: ${f.get('name').trim()}\nArrival: ${f.get('date')}\nNights: ${f.get('nights')}\nPackage: ${f.get('package')}\nGuests: ${f.get('guests')}\nRate category: ${f.get('category')}\nCoffee experience: ${f.has('coffee')?'Yes':'No'}\nMbale Hikers and Outdoor Club member: ${f.has('member')?'Yes':'No'}${f.get('notes').trim()?'\nNotes: '+f.get('notes').trim():''}\n\nPlease confirm availability, the total price and booking arrangements.`;window.open('https://wa.me/256702267620?text='+encodeURIComponent(message),'_blank','noopener,noreferrer')});
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('js-motion');const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.08});$$('.reveal').forEach(el=>observer.observe(el));if(matchMedia('(hover: hover) and (pointer: fine)').matches){$$('[data-tilt]').forEach(el=>{el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(1100px) rotateX(${-y*5}deg) rotateY(${x*6}deg) translateY(-3px)`});el.addEventListener('pointerleave',()=>el.style.transform='')})}}
+
+const videoDialog=$('#video-dialog'),reelPlayer=$('#reel-player');
+$$('[data-video]').forEach(card=>card.addEventListener('click',()=>{
+ $$('video').forEach(video=>video.pause());
+ $('#video-title').textContent=card.dataset.title;$('#video-status').textContent='';
+ reelPlayer.poster=card.dataset.poster;reelPlayer.src=card.dataset.video;
+ videoDialog.showModal();document.body.style.overflow='hidden';
+ reelPlayer.play().catch(()=>{$('#video-status').textContent='Press play to watch this moment.'});
+}));
+$('.video-close').addEventListener('click',()=>videoDialog.close());
+videoDialog.addEventListener('click',e=>{if(e.target===videoDialog)videoDialog.close()});
+videoDialog.addEventListener('close',()=>{reelPlayer.pause();reelPlayer.removeAttribute('src');reelPlayer.load();document.body.style.overflow=''});
+reelPlayer.addEventListener('error',()=>{if(reelPlayer.hasAttribute('src'))$('#video-status').textContent='This video could not load. Please check your connection and try again.'});
